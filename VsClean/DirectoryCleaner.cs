@@ -21,21 +21,24 @@ namespace VsClean
             var allDirectories = new List<string>();
             allDirectories.AddRange(Directory.GetDirectories(_rootDirectory, "bin", SearchOption.AllDirectories));
             allDirectories.AddRange(Directory.GetDirectories(_rootDirectory, "obj", SearchOption.AllDirectories));
-            allDirectories.Sort();
-            for (var i = allDirectories.Count - 1; i >= 0; i--)
-            {
-                var current = allDirectories[i];
-                var last = i > 0 ? allDirectories[i - 1] : null;
-                if (last != null && current.StartsWith(last))
-                {
-                    allDirectories.RemoveAt(i);
-                }
-            }
+            RemoveIfParentInList(allDirectories);
 
             var directoriesToDelete = allDirectories.Select(GetRelativePath);
             directoriesToDelete = directoriesToDelete.Where(DoesNotContainAnExcludedPart);
 
-            return directoriesToDelete;
+            return directoriesToDelete.OrderBy(d => d);
+        }
+
+        private static void RemoveIfParentInList(List<string> allDirectories)
+        {
+            for (var i = allDirectories.Count - 1; i >= 0; i--)
+            {
+                var current = allDirectories[i];
+                if (allDirectories.Except(new[] { current }).Any(d => current.StartsWith(d)))
+                {
+                    allDirectories.RemoveAt(i);
+                }
+            }
         }
 
         private string GetRelativePath(string directoryPath)

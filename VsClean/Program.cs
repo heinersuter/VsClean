@@ -4,10 +4,11 @@ using System.Linq;
 
 namespace VsClean
 {
-    public class Program
+    public static class Program
     {
         public static int Main(string[] args)
         {
+            ////args = new[] { @"C:\Projects\Zurich\MyZ\Trunk\Implementation\Main\Source" };
             if (args.Length > 1)
             {
                 Console.WriteLine("Only one argument can be provided.");
