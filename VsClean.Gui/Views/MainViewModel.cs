@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 
@@ -29,6 +31,12 @@ namespace VsClean.Gui.Views
             set { BackingFields.SetValue(value, directory => FindCommand.RaiseCanExecuteChanged()); }
         }
 
+        public bool? AreAllSelected
+        {
+            get { return BackingFields.GetValue<bool?>(); }
+            set { BackingFields.SetValue(value, SelectAll); }
+        }
+
         public List<DirectoryViewModel> Directories
         {
             get { return BackingFields.GetValue<List<DirectoryViewModel>>(); }
@@ -39,6 +47,15 @@ namespace VsClean.Gui.Views
 
         public DelegateCommand DeleteCommand => BackingFields.GetCommand(Delete, CanDelete);
 
+        private void SelectAll(bool? areAllSelected)
+        {
+            if (areAllSelected == null || Directories == null)
+            {
+                return;
+            }
+            Directories.ForEach(vm => vm.IsSelected = areAllSelected.Value);
+        }
+
         private bool CanFind()
         {
             return Directory.Exists(RootDirectory);
@@ -46,8 +63,34 @@ namespace VsClean.Gui.Views
 
         private void Find()
         {
+            Directories?.ForEach(vm => vm.PropertyChanged -= IsSelectedChanged);
+
             var directories = _directoryService.FindDirectoriesToDelete(RootDirectory);
-            Directories = directories.Select(direcotry => new DirectoryViewModel(direcotry)).ToList();
+
+            Directories = directories.Select(
+                direcotry =>
+                {
+                    var viewModel = new DirectoryViewModel(direcotry);
+                    viewModel.PropertyChanged += IsSelectedChanged;
+                    return viewModel;
+                }).ToList();
+            IsSelectedChanged(null, null);
+        }
+
+        private void IsSelectedChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (Directories.All(vm => vm.IsSelected))
+            {
+                AreAllSelected = true;
+            }
+            else if (!Directories.Any(vm => vm.IsSelected))
+            {
+                AreAllSelected = false;
+            }
+            else
+            {
+                AreAllSelected = null;
+            }
         }
 
         private bool CanDelete()

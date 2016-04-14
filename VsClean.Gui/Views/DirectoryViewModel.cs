@@ -9,13 +9,14 @@ namespace VsClean.Gui.Views
         public DirectoryViewModel(RelativeDirecotry directory)
         {
             Directory = directory;
+            IsSelected = true;
         }
 
         public RelativeDirecotry Directory { get; }
 
         public bool IsSelected
         {
-            get { return BackingFields.GetValue(() => true); }
+            get { return BackingFields.GetValue<bool>(); }
             set { BackingFields.SetValue(value); }
         }
     }

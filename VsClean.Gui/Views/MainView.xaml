@@ -13,6 +13,8 @@
 
         <Button DockPanel.Dock="Top" Content="Find" Command="{Binding FindCommand}" Margin="8"/>
 
+        <CheckBox DockPanel.Dock="Top" Content="All" IsChecked="{Binding AreAllSelected}" Margin="8"/>
+        
         <Button DockPanel.Dock="Bottom" Content="Delete" Command="{Binding DeleteCommand}" Margin="8"/>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="8">
