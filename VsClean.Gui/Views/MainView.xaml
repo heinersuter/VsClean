@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="VsClean.Gui.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:VsClean.Gui.Views"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance views:MainViewModel}">
+    <DockPanel>
+
+        <HeaderedContentControl DockPanel.Dock="Top" Header="Root Directory" Margin="8">
+            <TextBox Text="{Binding RootDirectory, UpdateSourceTrigger=PropertyChanged}"/>
+        </HeaderedContentControl>
+
+        <Button DockPanel.Dock="Top" Content="Find" Command="{Binding FindCommand}" Margin="8"/>
+
+        <Button DockPanel.Dock="Bottom" Content="Delete" Command="{Binding DeleteCommand}" Margin="8"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="8">
+            <ItemsControl ItemsSource="{Binding Directories}" IsTabStop="False">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type views:DirectoryViewModel}">
+                        <CheckBox IsChecked="{Binding IsSelected}">
+                            <TextBlock Text="{Binding Directory.RelativePath}"/>
+                        </CheckBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+</UserControl>
