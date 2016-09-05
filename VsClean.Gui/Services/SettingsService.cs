@@ -8,6 +8,7 @@ namespace VsClean.Gui.Services
     {
         public SettingsService()
         {
+            Settings.Default.Upgrade();
             Config = Settings.Default;
         }
 

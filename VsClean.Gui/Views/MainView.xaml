@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views="clr-namespace:VsClean.Gui.Views"
+             xmlns:commons="http://alsolos.ch/Commons/Wpf"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance views:MainViewModel}">
     <DockPanel>
 
@@ -13,7 +14,7 @@
 
         <Button DockPanel.Dock="Top" Content="Find" Command="{Binding FindCommand}" Margin="8"/>
 
-        <CheckBox DockPanel.Dock="Top" Content="All" IsChecked="{Binding AreAllSelected}" Margin="8"/>
+        <CheckBox DockPanel.Dock="Top" Content="All" IsChecked="{Binding AreAllSelected}" Margin="8" Visibility="{Binding Directories, Converter={commons:ListEmptyToVisibilityConverter}}"/>
         
         <Button DockPanel.Dock="Bottom" Content="Delete" Command="{Binding DeleteCommand}" Margin="8"/>
 

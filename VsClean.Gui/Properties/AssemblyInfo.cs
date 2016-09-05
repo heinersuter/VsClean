@@ -6,8 +6,5 @@ using System.Windows;
 [assembly: AssemblyCompany("Heiner Suter")]
 [assembly: AssemblyCopyright("Copyright © Heiner Suter 2016")]
 [assembly: ComVisible(false)]
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None,
-    ResourceDictionaryLocation.SourceAssembly
-)]
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: AssemblyVersion("1.0.*")]

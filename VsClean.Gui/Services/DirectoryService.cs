@@ -11,6 +11,8 @@ namespace VsClean.Gui.Services
 
         public IEnumerable<RelativeDirecotry> FindDirectoriesToDelete(string rootDirectory)
         {
+            rootDirectory = rootDirectory.EndsWith(@"\") ? rootDirectory.TrimEnd('\\') : rootDirectory;
+
             var allDirectories = new List<string>();
             allDirectories.AddRange(Directory.GetDirectories(rootDirectory, "bin", SearchOption.AllDirectories));
             allDirectories.AddRange(Directory.GetDirectories(rootDirectory, "obj", SearchOption.AllDirectories));
