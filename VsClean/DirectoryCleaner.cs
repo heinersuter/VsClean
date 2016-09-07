@@ -7,7 +7,8 @@ namespace VsClean
 {
     public class DirectoryCleaner
     {
-        private static readonly string[] _excludeList = { @"\packages\", @"\node_modules\" };
+        private static readonly string[] DeleteDirectoryList = { "bin", "obj", "TestResults" };
+        private static readonly string[] ExcludeList = { @"\packages\", @"\node_modules\" };
 
         private readonly string _rootDirectory;
 
@@ -19,8 +20,8 @@ namespace VsClean
         public IEnumerable<string> FindDirectoriesToDelete()
         {
             var allDirectories = new List<string>();
-            allDirectories.AddRange(Directory.GetDirectories(_rootDirectory, "bin", SearchOption.AllDirectories));
-            allDirectories.AddRange(Directory.GetDirectories(_rootDirectory, "obj", SearchOption.AllDirectories));
+            allDirectories.AddRange(DeleteDirectoryList.SelectMany(dir => Directory.GetDirectories(_rootDirectory, dir, SearchOption.AllDirectories)));
+
             RemoveIfParentInList(allDirectories);
 
             var directoriesToDelete = allDirectories.Select(GetRelativePath);
@@ -48,7 +49,7 @@ namespace VsClean
 
         private static bool DoesNotContainAnExcludedPart(string d)
         {
-            return !_excludeList.Any(d.Contains);
+            return !ExcludeList.Any(d.Contains);
         }
 
         public void Delete(IEnumerable<string> directoryPaths)
