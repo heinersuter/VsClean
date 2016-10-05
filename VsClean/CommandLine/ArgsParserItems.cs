@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VsClean.V2.CommandLine
+namespace VsClean.CommandLine
 {
     public class ArgsParserItems<T> : IEnumerable<T> where T : IArgsParserItem
     {

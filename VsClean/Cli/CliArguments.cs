@@ -1,4 +1,4 @@
-﻿namespace VsClean.V2.Cli
+﻿namespace VsClean.Cli
 {
     public class CliArguments
     {

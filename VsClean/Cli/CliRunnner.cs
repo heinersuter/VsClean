@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using VsClean.V2.Services;
+using VsClean.Services;
 
-namespace VsClean.V2.Cli
+namespace VsClean.Cli
 {
     public class CliRunnner
     {

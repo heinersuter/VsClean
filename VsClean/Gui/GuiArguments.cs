@@ -1,4 +1,4 @@
-﻿namespace VsClean.V2.Gui
+﻿namespace VsClean.Gui
 {
     public class GuiArguments
     {

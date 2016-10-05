@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VsClean.V2.Properties {
+namespace VsClean.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

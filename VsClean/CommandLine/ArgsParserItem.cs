@@ -1,4 +1,4 @@
-﻿namespace VsClean.V2.CommandLine
+﻿namespace VsClean.CommandLine
 {
     public class ArgsParserItem<T> : IArgsParserItem
     {

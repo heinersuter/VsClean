@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Shouldly;
-using VsClean.V2.CommandLine;
+using VsClean.CommandLine;
 
 namespace VsClean.Tests.CommandLine
 {

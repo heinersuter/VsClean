@@ -1,68 +1,44 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
+using VsClean.Cli;
+using VsClean.CommandLine;
+using VsClean.Gui;
 
 namespace VsClean
 {
-    public static class Program
+    public class Program
     {
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
-            ////args = new[] { @"C:\Projects\Zurich\MyZ\Trunk\Implementation\Main\Source" };
-            if (args.Length > 1)
+            //args = new[] { "-x" };
+
+            var argsParser = new ArgsParser();
+            argsParser.ExpectFlag("v", "Print verbose output.");
+            argsParser.ExpectFlag("g", "Start in GUI mode.");
+            argsParser.ExpectFlag("y", "No interaction, all directories are deleted.");
+            argsParser.ExpectFlag("h", "Print this help message.");
+            argsParser.ExpectOption("d", "rootDircetory", "The directory to clean", false);
+
+            var isValid = argsParser.Parse(args);
+            if (!isValid)
             {
-                Console.WriteLine("Only one argument can be provided.");
-                PrintUsage();
-                return -1;
+                Console.WriteLine(argsParser.GetErrorText());
+                Console.WriteLine();
+                Console.WriteLine(argsParser.GetUsage());
+                return;
             }
 
-            string rootDirectory;
-            if (args.Length == 1)
+            if (argsParser.Flags["h"])
             {
-                if (!Directory.Exists(args[0]))
-                {
-                    Console.WriteLine("The provided root directory does not exist.");
-                    PrintUsage();
-                    return -1;
-                }
-                rootDirectory = args[0];
+                Console.WriteLine(argsParser.GetUsage());
+            }
+            else if (argsParser.Flags["g"])
+            {
+                GuiStarter.Start(new GuiArguments(argsParser.Options["d"], argsParser.Flags["v"]));
             }
             else
             {
-                rootDirectory = Environment.CurrentDirectory;
+                CliRunnner.Start(new CliArguments(argsParser.Options["d"], !argsParser.Flags["y"], argsParser.Flags["v"]));
             }
-            Console.WriteLine($"Looking in: {rootDirectory}");
-
-            var directoryCleaner = new DirectoryCleaner(rootDirectory);
-            var directories = directoryCleaner.FindDirectoriesToDelete().ToList();
-
-            if (!directories.Any())
-            {
-                Console.WriteLine("No directories found.");
-                return 0;
-            }
-
-            Console.WriteLine();
-            Console.WriteLine($"These {directories.Count} directories were found:");
-            foreach (var directory in directories)
-            {
-                Console.WriteLine(directory);
-            }
-
-            Console.WriteLine();
-            Console.WriteLine($"Do you want to delete all {directories.Count} of them? (y/n)");
-            var answer = Console.ReadLine();
-            if (answer != null && answer.ToLowerInvariant().StartsWith("y"))
-            {
-                directoryCleaner.Delete(directories);
-            }
-
-            return 0;
-        }
-
-        private static void PrintUsage()
-        {
-            Console.WriteLine("Usage: vsclean [rootDirectory]");
         }
     }
 }

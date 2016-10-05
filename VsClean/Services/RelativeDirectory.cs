@@ -1,4 +1,4 @@
-﻿namespace VsClean.V2.Services
+﻿namespace VsClean.Services
 {
     public struct RelativeDirectory
     {

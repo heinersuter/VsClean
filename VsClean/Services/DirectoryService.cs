@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace VsClean.V2.Services
+namespace VsClean.Services
 {
     public class DirectoryService
     {

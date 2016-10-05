@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VsClean.V2\VsClean.V2.csproj">
-      <Project>{07042699-471E-45F5-8925-C4C81AA0A681}</Project>
-      <Name>VsClean.V2</Name>
+    <ProjectReference Include="..\VsClean\VsClean.csproj">
+      <Project>{f16ef841-e5ee-4db0-bef1-ce37aa4d1b22}</Project>
+      <Name>VsClean</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

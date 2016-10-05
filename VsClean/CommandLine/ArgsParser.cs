@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace VsClean.V2.CommandLine
+namespace VsClean.CommandLine
 {
     public class ArgsParser
     {

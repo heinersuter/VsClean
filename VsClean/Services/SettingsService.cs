@@ -1,7 +1,7 @@
 ﻿using System;
-using VsClean.V2.Properties;
+using VsClean.Properties;
 
-namespace VsClean.V2.Services
+namespace VsClean.Services
 {
     internal class SettingsService
     {
